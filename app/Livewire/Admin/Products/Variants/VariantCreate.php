@@ -101,10 +101,12 @@ class VariantCreate extends Component
                 'product_id' => $this->product->id,
             ]);
             
-            $path = $this->image->store('variants');
-            $variant->images()->create([
-                'path' => $path
-            ]);
+            if(!isset($this->image)){
+                $path = $this->image->store('variants');
+                $variant->images()->create([
+                    'path' => $path
+                ]);
+            }
     
             foreach ($this->variants as $index => $features) {
                 $variant->features()->attach($features['id']);
