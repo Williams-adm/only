@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\SecurityHeaders;
 use App\Http\Requests\Admin\Variant\UpdateVariantRequest;
 use App\Models\Product;
 use App\Models\Variant;
@@ -17,7 +16,6 @@ class VariantController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('can:manage products'),
-            new Middleware(SecurityHeaders::class),
         ];
     }
 
