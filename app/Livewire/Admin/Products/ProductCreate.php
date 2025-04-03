@@ -102,7 +102,6 @@ class ProductCreate extends Component
                 'name' => [
                     'required',
                     'string',
-                    'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
                     'between:3,80',
                     Rule::unique('products', 'name')->where(fn(Builder $query) => $query->where('sub_category_id', $this->sub_category_id))
                 ],
