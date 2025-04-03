@@ -9,8 +9,6 @@ use App\Models\SubCategory;
 use App\Traits\Admin\skuGenerator;
 use App\Traits\Admin\sweetAlerts;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -23,17 +21,13 @@ class ProductEdit extends Component
     use sweetAlerts;
 
     public $data;
-    public $image;
     public $families;
 
     public $family_id = '';
     public $category_id = '';
     public $sub_category_id = '';
     public $name = '';
-    public $price = '';
-    public $stock = '';
     public $description = '';
-    public $path = '';
 
     protected $listeners = ['save' => 'save'];
 
@@ -45,12 +39,7 @@ class ProductEdit extends Component
         $this->category_id = $data->subCategory->category_id;
         $this->sub_category_id = $data->sub_category_id;
         $this->name = $data->name;
-        $this->price = $data->price;
-        if(!$this->data->variants->count() > 0){
-            $this->stock = $data->stock;
-        }
         $this->description = $data->description;
-        $this->path = $data->images->first()->path; #obtenemos la primera imagen
     }
 
     public function boot()
@@ -107,45 +96,21 @@ class ProductEdit extends Component
             $sku = $this->data->sku;
         }
 
-        DB::beginTransaction();
-        try {
-            $product = Product::findOrFail($this->data->id);
-            
-            $product->update([
-                'name' => $this->name,
-                'price' => $this->price,
-                'sku' => $sku,
-                'description' => $this->description,
-                'sub_category_id' => $this->sub_category_id,
-            ]);
-
-            if ($this->image) {
-                Storage::delete($this->path);
-                $this->path = $this->image->store('products');
-                
-                $product->images()->update([
-                    'path' => $this->path
-                ]);
-            }
+        $product = Product::findOrFail($this->data->id);
         
-            DB::commit();
+        $product->update([
+            'name' => $this->name,
+            'sku' => $sku,
+            'description' => $this->description,
+            'sub_category_id' => $this->sub_category_id,
+        ]);
 
-            $this->dispatch('subcategoryUpdated', $this->name);
+        $this->dispatch('subcategoryUpdated', $this->name);
 
-            $this->alertGenerate2([
-                'title' => '¡Registro actualizado!',
-                'text' => "El registro ha sido actualizado correctamente",
-            ]);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            $this->alertGenerate2([
-                'title' => "¡Error!",
-                'text' => "$e",
-                'icon' => "error",
-            ]);
-        }
+        $this->alertGenerate2([
+            'title' => '¡Registro actualizado!',
+            'text' => "El registro ha sido actualizado correctamente",
+        ]);
     }
 
     public function validateData()
@@ -164,15 +129,11 @@ class ProductEdit extends Component
                         ->where(fn(Builder $query) => $query->where('sub_category_id', $this->sub_category_id))
                         ->ignore($this->data->id)
                 ],
-                'price' => 'required|numeric|decimal:2|min:1',
-                'stock' => ['sometimes', 'numeric', 'min:1', Rule::requiredIf(fn() => $this->data->variants->count() == 0)],
-                'description' => 'nullable|string',
-                'image' => 'nullable|image|max:1024'
+                'description' => 'required|string',
             ],
             [
                 'name.regex' => 'El campo nombre solo puede contener letras y espacios.',
                 'name.unique' => 'El nombre ya está relacionado con esta subcategoria.',
-                'price.min' => 'El precio debe ser mayor a S/. 0.00'
             ],
             [
                 'category_id' => 'categoría',

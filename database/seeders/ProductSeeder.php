@@ -17,9 +17,9 @@ class ProductSeeder extends Seeder
     {
         Storage::deleteDirectory('products');
 
-        Product::factory(60)->create();
+        Product::factory(10)->create();
 
-        $products = Product::all();
+        /* $products = Product::all();
 
         foreach($products as $product) {
             Image::factory()
@@ -28,6 +28,6 @@ class ProductSeeder extends Seeder
                     'imageable_id' => $product->id,
                     'imageable_type' => Product::class,
                 ]);
-        }
+        } */
     }
 }

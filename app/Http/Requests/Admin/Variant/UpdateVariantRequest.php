@@ -24,6 +24,7 @@ class UpdateVariantRequest extends FormRequest
         return [
             'image' => 'nullable|image|max:1024',
             'stock' => 'required|min:1|integer',
+            'price' => 'required|numeric|min:1|decimal:2|min:1',
         ];
     }
 }

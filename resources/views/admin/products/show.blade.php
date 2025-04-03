@@ -25,14 +25,6 @@
                 </p>
             </div>
 
-            <div class="mb-3 flex flex-col">
-                <h6 class="header-h6 ">Imagen:</h6>
-                <figure class="max-w-lg self-center">
-                    <img class="h-auto max-w-full rounded-lg" src="{{Storage::url($data->images->first()->path)}}"
-                        alt="">
-                </figure>
-            </div>
-
             <div class="mb-3">
                 <h6 class="header-h6">
                     Familia:
@@ -68,26 +60,6 @@
                     {{ $data->name }}
                 </p>
             </div>
-
-            <div class="mb-3">
-                <h6 class="header-h6">
-                    Precio:
-                </h6>
-                <p class="cont-p">
-                    S/. {{ $data->price }}
-                </p>
-            </div>
-            
-            @if (!$data->variants->count() > 0)
-                <div class="mb-3">
-                    <h6 class="header-h6">
-                        Stock:
-                    </h6>
-                    <p class="cont-p">
-                        {{ $data->stock }}
-                    </p>
-                </div>      
-            @endif
             
             <div class="mb-3">
                 <h6 class="header-h6">

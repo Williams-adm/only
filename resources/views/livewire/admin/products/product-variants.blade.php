@@ -133,7 +133,7 @@
 
                 <x-select wire:model.live="variant.option_id" wire:key="variant.optiond_id" class="w-full">
                     <option disabled selected value="">Seleccione una opción</option>
-                    @foreach ($options as $option)
+                    @foreach ($this->options as $option)
                         <option value="{{ $option->id }}">
                             {{ $option->name }}
                         </option>

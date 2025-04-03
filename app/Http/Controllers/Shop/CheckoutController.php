@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\Variant;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -110,7 +111,11 @@ class CheckoutController extends Controller implements HasMiddleware
                 'total' => Cart::instance('shopping')->subtotal() + 15,
             ]);
             
-            Cart::instance('shopping');
+            foreach(Cart::instance('shopping')->content() as $item){
+                Variant::where('sku', $item->options['sku'])
+                    ->decrement('stock', $item->qty);
+            }
+
             Cart::destroy();
             if (Auth::check()) {
                 Cart::store(Auth::user()->id);

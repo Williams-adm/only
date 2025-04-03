@@ -1,5 +1,5 @@
 <div>
-    <form action="" wire:submit="save">
+    <form wire:submit="save">
         
         <x-validation-errors class="mb-4" />
 
@@ -67,13 +67,22 @@
             <hr class="flex-1">
         </div>
 
-        <div class="mb-6">
+        <div class="mb-4">
             <x-label class="mb-2">
                 Stock
             </x-label>
             <x-input class="w-full" placeholder="Ingrese el stock del producto"
-                type="number" wire:model="infoVariant.stock"/>
+                type="number" wire:model="infoVariant.stock" wire:key="stock"/>
         </div>
+
+        <div class="mb-6">
+            <x-label class="mb-2">
+                Precio
+            </x-label>
+            <x-input class="w-full" placeholder="Ingrese el precio del producto" wire:model="infoVariant.price"  wire:key="price"
+                type="number" step="0.01" min="1"/>
+        </div>
+
         <h6 class="mb-2 block font-medium text-gray-700 dark:text-gray-300">
             Imagen
         </h6>

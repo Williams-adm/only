@@ -182,7 +182,7 @@ class OrderTable extends DataTableComponent
         $this->validate(
             [
                 'newShipment.shipping_companies_id' => 'required|exists:shipping_companies,id',
-                'newShipment.tracking_number' => 'required|string|unique:shipments,tracking_number',
+                'newShipment.tracking_number' => 'required|string|between:10,18|unique:shipments,tracking_number',
             ], [],
             [
                 'newShipment.shipping_companies_id' => 'nombre del courier',

@@ -30,7 +30,8 @@ class VariantRepository
             }
 
             $variant->update([
-                'stock' => $request->stock
+                'stock' => $request->stock,
+                'price' => $request->price
             ]);
 
             DB::commit();

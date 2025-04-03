@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('sku', length: 10)->nullable();
             $table->integer('stock')->unsigned()->default(0);
+            $table->decimal('price', total: 8, places: 2);
 
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             

@@ -60,7 +60,13 @@
                                     Mi perfil
                                 </x-dropdown-link>
 
-                                <div class="border-t border-gray-200">
+                                @if (count(Auth::user()->roles))
+                                    <x-dropdown-link href="{{ route('admin.dashboard') }}" class="border-t border-gray-200 dark:border-gray-600">
+                                        Admin
+                                    </x-dropdown-link>
+                                @endif
+
+                                <div class="border-t border-gray-200 dark:border-gray-600">
                                     <!-- Authentication -->
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf

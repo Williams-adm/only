@@ -21,14 +21,23 @@
                                     <img class="w-full lg:w-28 aspect-square object-cover object-center mr-6" src="{{Storage::url($item->options['image'])}}" alt="">
                                 </a>
                                 <div class="w-80">
-                                    <p class="text-lg dark:text-gray-100 text-gray-900">
+                                    @if ($item->qty > $item->options['stock'])
+                                        <p class="font-semibold text-red-500 text-lg">
+                                            Stock insuficiente
+                                        </p>
+                                    @endif
+                                    <p class="text-lg truncate {{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'dark:text-gray-100 text-gray-900' }}">
                                         <a href="{{ route('products.show', $item->id) }}">
                                             {{ $item->name }}
+                                            <br>
+                                            @foreach ($item->options->features as $key => $value)
+                                                <p class="{{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'dark:text-gray-200 text-gray-800' }}">{{ $value }}</p>
+                                            @endforeach
                                         </a>
                                     </p>
                                 </div>
 
-                                <p class="dark:text-gray-100 text-gray-900">
+                                <p class="{{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'dark:text-gray-100 text-gray-900' }}">
                                     S/. {{ $item->price }}
                                 </p>
 
@@ -37,11 +46,14 @@
                                         wire:key="decrement-{{ $item->rowId }}">
                                         <i class="fa-solid fa-minus"></i>
                                     </button>
-                                    <span class="text-gray-700 dark:text-gray-300 inline-block w-8 text-center">
+                                    <span class="inline-block w-8 text-center {{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'text-gray-700 dark:text-gray-300' }}">
                                         {{ $item->qty }}
                                     </span>
-                                    <button class="btn3 btn-light" wire:click="increase('{{ $item->rowId }}')"
-                                        wire:key="incremet-{{ $item->rowId }}">
+                                    <button class="btn3 btn-light disabled:cursor-not-allowed" wire:key="incremet-{{ $item->rowId }}"
+                                        wire:click="increase('{{ $item->rowId }}')"
+                                        wire:loading.attr="disabled"
+                                        wire:target="increase('{{ $item->rowId }}')"
+                                        @disabled($item->qty >= $item->options['stock'] )>
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
@@ -64,11 +76,11 @@
                         </p>
 
                         <p class="dark:text-gray-200 text-gray-800">
-                            S/. {{ Cart::subtotal() }}
+                            S/. {{ $this->subtotal }}
                         </p>
                     </div>
 
-                    <a href="{{ route('shipping.index') }}" class="btn btn-blue block w-full text-center">
+                    <a href="{{ route('shipping.index') }}" class="btn btn-blue block w-full text-center {{ $this->subtotal == Cart::subtotal() ? '' : 'cursor-not-allowed opacity-50' }}">
                         Continuar compra
                     </a>
                 </div>

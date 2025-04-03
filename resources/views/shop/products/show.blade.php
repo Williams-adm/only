@@ -20,9 +20,6 @@
         </div>
     </x-container>
 
-    @if ($product->variants->count())
-        @livewire('shop.products.add-to-cart-variants', ['product' => $product])
-    @else
-        @livewire('shop.products.add-to-cart', ['product' => $product])
-    @endif
+    @livewire('shop.products.add-to-cart', ['product' => $product])
+    
 </x-app-layout>

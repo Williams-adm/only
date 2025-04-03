@@ -20,7 +20,7 @@ class ProductFactory extends Factory
             'sku' => $this->faker->unique()->numberBetween(100000, 999999),
             'name' => $this->faker->words(2, true),
             'description' => $this->faker->text(150),
-            'price' => $this->faker->randomFloat(2, 20, 500),
+            /* 'price' => $this->faker->randomFloat(2, 20, 500), */
             'sub_category_id' => $this->faker->numberBetween(1, 18)
         ];
     }

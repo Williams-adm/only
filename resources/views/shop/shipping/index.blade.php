@@ -19,7 +19,7 @@
                     <div class="p-4 text-gray-600 dark:text-gray-200">
                         <ul>
                             @foreach (Cart::content() as $item)
-                                <li class="flex items-center space-x-4">
+                                <li class="flex items-center space-x-4 mb-2">
                                     <figure class="shrink-0">
                                         <img class="h-14 aspect-square" src="{{ Storage::url($item->options->image) }}" alt="">
                                     </figure>

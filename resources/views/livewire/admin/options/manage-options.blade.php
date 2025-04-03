@@ -14,59 +14,63 @@
         </header>
 
         <div class="p-6">
-            <div class="space-y-6">
-                @foreach ($options as $option)
-                    <div class="p-6 rounded-lg border border-gray-300 dark:border-gray-500 relative" wire:key="option-{{$option->id}}">
-                        <div class="absolute -top-3 bg-white dark:bg-gray-800">
-                            <span class="text-gray-500 dark:text-gray-400 px-3">
-                                {{ $option->name }}
-                            </span>
-                            <button class="mr-3" onclick="confirmDelete({{$option->id}}, 'deleteOption')">
-                                <li class="fa-solid fa-trash-can hover:text-red-500 dark:text-gray-300"></li>
-                            </button>
-                        </div>
-                        
-                        @if ($option->features->isEmpty())
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <p class="text-gray-800 dark:text-gray-300 text-sm font-medium">Esta opción no tiene valores asociados</p>
+            @if (count($options))
+                <div class="space-y-6">
+                    @foreach ($options as $option)
+                        <div class="p-6 rounded-lg border border-gray-300 dark:border-gray-500 relative" wire:key="option-{{$option->id}}">
+                            <div class="absolute -top-3 bg-white dark:bg-gray-800">
+                                <span class="text-gray-500 dark:text-gray-400 px-3">
+                                    {{ $option->name }}
+                                </span>
+                                <button class="mr-3" onclick="confirmDelete({{$option->id}}, 'deleteOption')">
+                                    <li class="fa-solid fa-trash-can hover:text-red-500 dark:text-gray-300"></li>
+                                </button>
                             </div>
-                        @else
-                            {{-- Valores --}}
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                @foreach ($option->features as $feature)
-                                    @switch($option->type)
-                                        @case(1)
-                                            {{-- texto --}}
-                                            <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">
-                                                {{ $feature->description }}
+                            
+                            @if ($option->features->isEmpty())
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <p class="text-gray-800 dark:text-gray-300 text-sm font-medium">Esta opción no tiene valores asociados</p>
+                                </div>
+                            @else
+                                {{-- Valores --}}
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    @foreach ($option->features as $feature)
+                                        @switch($option->type)
+                                            @case(1)
+                                                {{-- texto --}}
+                                                <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">
+                                                    {{ $feature->description }}
 
-                                                <button class="ml-1 pt-0.5" onclick="confirmDelete({{$feature->id}}, 'deleteFeature')">
-                                                    <i class="fa-solid fa-xmark hover:text-red-600"></i>
-                                                </button>
+                                                    <button class="ml-1 pt-0.5" onclick="confirmDelete({{$feature->id}}, 'deleteFeature')">
+                                                        <i class="fa-solid fa-xmark hover:text-red-600"></i>
+                                                    </button>
 
-                                            </span>
-                                            @break
-                                        @case(2)
-                                            {{-- color --}}
-                                            <div class="relative">
-                                                <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 dark:border-gray-500 mr-4" style="background-color: {{ $feature->value }}"></span>
-                                                <button class="absolute z-10 left-4 -top-2" onclick="confirmDelete({{$feature->id}}, 'deleteFeature')">
-                                                    <i class="fa-solid fa-circle-xmark hover:text-red-500 dark:text-gray-300"></i>
-                                                </button>
-                                            </div>
-                                            @break
-                                        @default 
-                                    @endswitch
-                                @endforeach
+                                                </span>
+                                                @break
+                                            @case(2)
+                                                {{-- color --}}
+                                                <div class="relative">
+                                                    <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 dark:border-gray-500 mr-4" style="background-color: {{ $feature->value }}"></span>
+                                                    <button class="absolute z-10 left-4 -top-2" onclick="confirmDelete({{$feature->id}}, 'deleteFeature')">
+                                                        <i class="fa-solid fa-circle-xmark hover:text-red-500 dark:text-gray-300"></i>
+                                                    </button>
+                                                </div>
+                                                @break
+                                            @default 
+                                        @endswitch
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <div>
+                                @livewire('admin.options.add-new-features', ['option' => $option], key('add-new-feature-' . $option->id))
                             </div>
-                        @endif
-
-                        <div>
-                            @livewire('admin.options.add-new-features', ['option' => $option], key('add-new-feature-' . $option->id))
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @else
+                @include('admin.partials.alert-info', ['message' => 'Aún no se han registrado opciones para los productos'])
+            @endif
         </div>
     </section>
 

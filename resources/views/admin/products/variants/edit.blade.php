@@ -52,6 +52,16 @@
                 placeholder="Ingrese el stock" 
             />
         </div>
+        
+        <div class="mb-4">
+            <x-label class="mb-2">
+                    Precio
+            </x-label>
+            <x-input class="w-full" type="number" name="price"
+                value="{{ old('price', $variant->price) }}"
+                placeholder="Ingrese el precio" 
+            />
+        </div>
 
         <div class="flex justify-end">
             <x-button type="button" onclick="confirmEdit()">

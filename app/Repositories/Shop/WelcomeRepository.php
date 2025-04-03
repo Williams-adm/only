@@ -19,7 +19,7 @@ class WelcomeRepository
             ->with('images')->get();
 
         $lastProducts = Product::orderBy('created_at', 'desc')
-            ->take(12)->with('images')->get();
+            ->take(12)->with('variants.images')->get();
 
         return compact('covers', 'lastProducts');
     }

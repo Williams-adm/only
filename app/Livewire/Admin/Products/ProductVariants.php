@@ -21,8 +21,6 @@ class ProductVariants extends Component
 
     public $openModal = false;
 
-    public $options;
-
     public $variant = [
         'option_id' => '',
         'features' => [
@@ -33,10 +31,6 @@ class ProductVariants extends Component
             ]
         ],
     ];
-
-    public function mount(){
-        $this->options = Option::all();
-    }
 
     public function boot()
     {
@@ -58,6 +52,14 @@ class ProductVariants extends Component
             $feature['value'] = '';
             $feature['description'] = '';
         }
+    }
+
+    #[Computed()]
+    public function options() 
+    {
+        return Option::whereDoesntHave('products', function ($query){
+            $query->where('product_id', $this->product->id);
+        })->get();
     }
 
     #[Computed()]

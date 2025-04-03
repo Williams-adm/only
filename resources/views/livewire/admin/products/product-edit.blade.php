@@ -54,24 +54,6 @@
             </x-label>
             <x-input class="w-full" placeholder="Ingrese el nombre del producto" wire:model="name" wire:key="name"/>
         </div>
-        
-        <div class="mb-4">
-            <x-label class="mb-2">
-                Precio
-            </x-label>
-            <x-input class="w-full" placeholder="Ingrese el precio del producto" wire:model="price"  wire:key="price"
-                type="number" step="0.01"/>
-        </div>
-        
-        @if (!$data->variants->count() > 0)
-            <div class="mb-4">
-                <x-label class="mb-2">
-                    Stock
-                </x-label>
-                <x-input class="w-full" placeholder="Ingrese el stock del producto" wire:model="stock"  wire:key="stock"
-                    type="number"/>
-            </div>
-        @endif
     
         <div class="mb-4">
             <x-label class="mb-2">
@@ -79,24 +61,6 @@
             </x-label>
             <x-textarea wire:model="description" placeholder="Ingrese una descripción para el producto" rows="4">
             </x-textarea>
-        </div>
-    
-        <h6 class="mb-2 block font-medium text-gray-700 dark:text-gray-300">
-            Imagen
-        </h6>
-        <div class="flex justify-center relative mt-4">
-            <div class="absolute top-0 right-0 md:right-8">
-                <label class="flex items-center btn2 btn-light cursor-pointer">
-                    <i class="fa-solid fa-images fa-lg mr-2"></i>
-                    Subir imagen
-    
-                    <input type="file" class="hidden" wire:model="image" accept="image/*">
-                </label>
-            </div>
-            <figure class="max-w-lg">
-                <img class="h-auto max-w-full" 
-                src="{{ $image ? $image->temporaryUrl() : Storage::url($path) }}" alt="">
-            </figure>
         </div>
 
         <div class="flex justify-end">

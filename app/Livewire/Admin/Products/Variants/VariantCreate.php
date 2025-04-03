@@ -32,7 +32,8 @@ class VariantCreate extends Component
     ];
 
     public $infoVariant = [
-        'stock'
+        'stock',
+        'price'
     ];
 
     public function mount()
@@ -95,10 +96,11 @@ class VariantCreate extends Component
         try{
             $variant = Variant::create([
                 'stock' => $this->infoVariant['stock'],
+                'price' => $this->infoVariant['price'],
                 'sku' => $sku,
                 'product_id' => $this->product->id,
             ]);
-    
+            
             $path = $this->image->store('variants');
             $variant->images()->create([
                 'path' => $path
@@ -133,14 +135,18 @@ class VariantCreate extends Component
         $rules = [
             'image' => 'required|image|max:1024',
             'infoVariant.stock' => 'required|min:1|integer',
+            'infoVariant.price' => 'required|numeric|decimal:2|min:1',
             'variants.*.option_id' => 'required|distinct:strict',
             'variants.*.id' => ['required', new UniqueVariantFeature($this->product->id, $this->variants)],
         ];
 
-        $validationMessages = [];
+        $validationMessages = [
+            'infoVariant.price.min' => 'El precio debe ser mayor a S/. 0.00'
+        ];
 
         $validationAttributes = [
             'infoVariant.stock' => 'stock',
+            'infoVariant.price' => 'precio',
         ];
 
         foreach ($this->variants as $index => $fetureVariant){

@@ -24,13 +24,10 @@ class ProductCreate extends Component
     public $families;
 
     public $family_id = '';
-    public $stock = '';
     public $category_id = '';
     public $sub_category_id = '';
     public $name = '';
-    public $price = '';
     public $description = '';
-    public $image;
 
     public function mount()
     {
@@ -83,37 +80,16 @@ class ProductCreate extends Component
 
         $sku = $this->generateSku($this->sub_category_id, $this->name);
         
-        DB::beginTransaction();
-        try{
-            $product = Product::create([
-                'name' => $this->name,
-                'price' => $this->price,
-                'stock' => $this->stock,
-                'sku' => $sku,
-                'description' => $this->description,
-                'sub_category_id' => $this->sub_category_id,
-            ]);
-            
-            $path = $this->image->store('products');
-            $product->images()->create([
-                'path' => $path
-            ]);
+        $data = Product::create([
+            'name' => $this->name,
+            'sku' => $sku,
+            'description' => $this->description,
+            'sub_category_id' => $this->sub_category_id,
+        ]);
 
-            DB::commit();
+        $this->alertGenerate1();
 
-            $this->alertGenerate1();
-    
-            return redirect()->route('admin.products.create');
-
-        }catch (\Exception $e) {
-            DB::rollback();
-            
-            $this->alertGenerate1([
-                'title' => "¡Error!",
-                'text' => "Hubo un problema al crear el registro.",
-                'icon' => "error",
-            ]);
-        }
+        return redirect()->route('admin.products.show', $data);
     }
 
     public function validateData()
@@ -130,15 +106,11 @@ class ProductCreate extends Component
                     'between:3,80',
                     Rule::unique('products', 'name')->where(fn(Builder $query) => $query->where('sub_category_id', $this->sub_category_id))
                 ],
-                'price' => 'required|numeric|decimal:2|min:1',
-                'stock' => 'required|min:1|integer',
-                'description' => 'nullable|string',
-                'image' => 'required|image|max:1024'
+                'description' => 'required|string',
             ],
             [
                 'name.regex' => 'El campo nombre solo puede contener letras y espacios.',
                 'name.unique' => 'El nombre ya está relacionado con esta subcategoria.',
-                'price.min' => 'El precio debe ser mayor a S/. 0.00'
             ],
             [
                 'category_id' => 'categoría',

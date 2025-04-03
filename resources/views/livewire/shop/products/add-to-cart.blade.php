@@ -3,8 +3,8 @@
         <div class="grid md:grid-cols-2 gap-6 items-center">
             <div class="col-span-1">
                 <figure>
-                    <img src="{{ Storage::url($product->images->first()->path) }}"
-                        class="aspect-[16/9] w-full object-cover object-center" alt="product-{{ $product->name }}">
+                    <img src="{{ Storage::url($this->variantImg->images->first()->path) }}"
+                        class="aspect-[1/1] w-full object-cover object-center" alt="product-{{ $product->name }}">
                 </figure>
             </div>
             <div class="col-span-1">
@@ -33,13 +33,20 @@
                     <p class="text-sm text-gray-700 dark:text-gray-300">4.7 (55)</p>
                 </div>
 
-                <p class="font-semibold text-2xl mb-4 text-gray-600 dark:text-gray-200">
-                    S/. {{ $product->price }}
-                </p>
+                <div class="flex justify-between items-center">
+                    <p class="font-semibold text-2xl mb-4 text-gray-600 dark:text-gray-200">
+                        S/. {{ $this->variantImg->price }}
+                    </p>
+
+                    <p class="text-xl mb-4 text-gray-600 dark:text-gray-200">
+                        Stock: {{ $stock }}
+                    </p>
+                </div>
 
                 <div class="flex space-x-6 items-center mb-6"
                     x-data="{
-                        qty: @entangle('qty')
+                        qty: @entangle('qty'),
+                        stock: @entangle('stock')
                     }">
                     <button class="btn3 btn-light disabled:cursor-not-allowed"
                         x-on:click="qty -= 1"
@@ -49,14 +56,52 @@
                     <span class="text-gray-700 dark:text-gray-300 inline-block w-8 text-center"
                         x-text="qty">
                     </span>
-                    <button class="btn3 btn-light"
-                        x-on:click="qty += 1">
+                    <button class="btn3 btn-light disabled:cursor-not-allowed"
+                        x-on:click="qty += 1"
+                        x-bind:disabled="qty >= stock">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
 
-                <button class="btn btn-blue w-full mb-7"
-                    wire:click="addToCart" wire:loading.attr="disabled">
+                <div class="flex flex-wrap">
+                    @foreach ($this->availableOptions as $optionId => $features)
+                        <div class="mr-4 mb-6">
+                            <p class="text-gray-800 dark:text-gray-300 font-semibold text-lg mb-2">
+                                {{ $features->first()['option']['name'] }}
+                            </p>
+
+                            <ul class="flex items-center space-x-4">
+                                @foreach ($features as $feature)
+                                    <li>
+                                        @switch($feature->option->type)
+                                            @case(1)
+                                                <button class="w-20 h-8 font-semibold uppercase text-sm rounded-lg {{ $selectedFeatures[$feature['option_id']] ==  $feature['id'] ? 'bg-[#FEC51C] text-black' : 'border border-gray-200 text-gray-700 dark:text-gray-200 dark:border-gray-500'}}"
+                                                    wire:click="$set('selectedFeatures.{{ $feature['option_id'] }}', {{ $feature['id'] }})" wire:key="option-{{ $feature['option_id'] }}-feature-{{ $feature['id'] }}">
+                                                    {{ $feature['value'] }}
+                                                </button>
+                                                @break
+                                            @case(2)
+                                                <div class="p-0.5 border-2 rounded-lg flex items-center -mt-1.5 {{ $selectedFeatures[$feature['option_id']] ==  $feature['id'] ? 'border-[#FEC51C]' : 'border-transparent' }}">
+                                                    <button class="w-20 h-8 rounded-lg"
+                                                        wire:click="$set('selectedFeatures.{{ $feature['option_id'] }}', {{ $feature['id'] }} )"
+                                                        style="background-color: {{$feature['value']}}"
+                                                        wire:key="option-{{ $feature['option_id'] }}-feature-{{ $feature['id'] }}">
+                                                    </button>
+                                                </div>
+                                                @break
+                                            @default
+                                                
+                                        @endswitch
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                    @endforeach
+                </div>
+
+                <button class="btn btn-blue w-full mb-7 {{ $this->variantImg->stock == 0  ? 'disabled:cursor-not-allowed opacity-50' : '' }}"
+                    wire:click="addToCart" wire:loading.attr="disabled" @disabled($this->variantImg->stock == 0)>
                     Agregar al carrito
                 </button>
 

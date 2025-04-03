@@ -4,8 +4,6 @@ namespace App\Repositories\Admin;
 
 use App\Models\Product;
 use App\Traits\Admin\sweetAlerts;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends BaseRepository
 {
@@ -18,31 +16,12 @@ class ProductRepository extends BaseRepository
 
     public function destroy(int $id)
     {
-        DB::beginTransaction();
-        try {
-            $product = Product::findOrFail($id);
-            $image = $product->images->first();
-
-            Storage::delete($image->path);
-            $image->delete();
-
-            $product->delete();
-
-            DB::commit();
-
-            $this->alertGenerate1([
-                'title' => '¡Registro eliminado!',
-                'text' => "El registro ha sido eliminado correctamente",
-            ]);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            $this->alertGenerate1([
-                'icon' => 'error',
-                'title' => '¡Error!',
-                'text' => "Hubo un problema al eliminar el registro.",
-            ]);
-        }
+        /* Recordar regresarlo al normal ya que el delete es similar a otros */
+        $product = Product::findOrFail($id);
+        $product->delete();
+        $this->alertGenerate1([
+            'title' => '¡Registro eliminado!',
+            'text' => "El registro ha sido eliminado correctamente",
+        ]);
     }
 }
