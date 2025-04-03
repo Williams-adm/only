@@ -101,10 +101,10 @@ class VariantCreate extends Component
                 'product_id' => $this->product->id,
             ]);
             
-            $path = $this->image->store('variants');
+            /* $path = $this->image->store('variants');
             $variant->images()->create([
                 'path' => $path
-            ]);
+            ]); */
     
             foreach ($this->variants as $index => $features) {
                 $variant->features()->attach($features['id']);
@@ -133,7 +133,7 @@ class VariantCreate extends Component
     public function validateData()
     {
         $rules = [
-            'image' => 'required|image|max:1024',
+            'image' => 'nullable|image|max:1024',
             'infoVariant.stock' => 'required|min:1|integer',
             'infoVariant.price' => 'required|numeric|decimal:2|min:1',
             'variants.*.option_id' => 'required|distinct:strict',

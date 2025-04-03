@@ -37,10 +37,10 @@
             </div>
             <figure class="max-w-lg">
                 <img class="h-auto max-w-full" 
-                    src="{{ old('old_image', Storage::url($variant->images->first()->path)) }}" 
+                    src="{{ old('old_image', $variant->images->first() ? Storage::url($variant->images->first()->path) : asset('assets/img/no-image.png')) }}"  
                     alt="" id="imgPreview">
             </figure>
-            <input type="hidden" name="old_image" value="{{ old('old_image', Storage::url($variant->images->first()->path)) }}">
+            <input type="hidden" name="old_image" value="{{ old('old_image', $variant->images->first() ? Storage::url($variant->images->first()->path) : asset('assets/img/no-image.png')) }}">
         </div>
 
         <div class="mb-4">

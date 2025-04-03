@@ -96,7 +96,7 @@
                     <ul class="divide-y -my-4">
                         @foreach($product->variants as $item)
                             <li class="py-4 flex items-center">
-                                <img src="{{ Storage::url($item->images->first()->path) }}" alt="" class="w-18 h-16 object-cover object-center">
+                                <img src="{{ $item->images->first() ? Storage::url($item->images->first()->path) : asset('assets/img/no-image.png')}}" alt="" class="w-18 h-16 object-cover object-center">
                                 
                                 <p class="divide-x ml-2 text-gray-500 dark:text-gray-300">
                                     @foreach ($item->features as $featureItem)

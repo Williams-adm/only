@@ -18,12 +18,22 @@ class VariantRepository
             if ($request->image) {
                 $image = $variant->images->first();
 
+                // Si ya existe una imagen, la eliminamos
                 if ($image && $image->path) {
+                    Storage::delete($image->path);
+                }
 
-                    Storage::delete($variant->images->first()->path);
-                    $img = $request->image->store('variants');
+                // Almacenamos la nueva imagen
+                $img = $request->image->store('variants');
 
-                    $variant->images()->update([
+                // Si ya existe una imagen, actualizamos el path de esa imagen
+                if ($image) {
+                    $image->update([
+                        'path' => $img
+                    ]);
+                } else {
+                    // Si no existe ninguna imagen, creamos una nueva entrada en la relación
+                    $variant->images()->create([
                         'path' => $img
                     ]);
                 }
