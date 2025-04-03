@@ -16,7 +16,7 @@ class WelcomeRepository
                 $query->whereDate('end_at', '>=', now())
                     ->orWhereNull('end_at')
             )
-            ->with('images')->get();
+            ->orderBy('order', 'asc')->with('images')->get();
 
         $lastProducts = Product::orderBy('created_at', 'desc')
             ->take(12)->with('variants.images')->get();

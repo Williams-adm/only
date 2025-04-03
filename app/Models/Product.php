@@ -65,10 +65,12 @@ class Product extends Model
             $query->orderBy('created_at', 'desc');
         })
         ->when($orderBy == 2, function ($query) {
-            $query->orderBy('price', 'desc');
+            $query->join('variants', 'variants.product_id', '=', 'products.id')
+                ->orderBy('variants.price', 'desc');
         })
         ->when($orderBy == 3, function ($query) {
-            $query->orderBy('price', 'asc');
+            $query->join('variants', 'variants.product_id', '=', 'products.id')
+                ->orderBy('variants.price', 'asc');
         });
     }
 
