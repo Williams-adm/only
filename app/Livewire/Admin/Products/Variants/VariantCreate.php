@@ -14,7 +14,7 @@ use Livewire\WithFileUploads;
 
 class VariantCreate extends Component
 {
-    use WithFileUploads;
+
     use skuGenerator;
     use sweetAlerts;
 
@@ -101,12 +101,10 @@ class VariantCreate extends Component
                 'product_id' => $this->product->id,
             ]);
             
-            if(!isset($this->image)){
-                $path = $this->image->store('variants');
-                $variant->images()->create([
-                    'path' => $path
-                ]);
-            }
+            $path = $this->image->store('variants');
+            $variant->images()->create([
+                'path' => $path
+            ]);
     
             foreach ($this->variants as $index => $features) {
                 $variant->features()->attach($features['id']);
@@ -135,7 +133,7 @@ class VariantCreate extends Component
     public function validateData()
     {
         $rules = [
-            'image' => 'nullable|image|max:1024',
+            'image' => 'required|image|max:1024',
             'infoVariant.stock' => 'required|min:1|integer',
             'infoVariant.price' => 'required|numeric|decimal:2|min:1',
             'variants.*.option_id' => 'required|distinct:strict',
