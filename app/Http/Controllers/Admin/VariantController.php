@@ -3,13 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Requests\Admin\Variant\UpdateVariantRequest;
 use App\Models\Product;
 use App\Models\Variant;
 use App\Repositories\Admin\VariantRepository;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class VariantController extends Controller
+class VariantController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('can:manage products'),
+            new Middleware(SecurityHeaders::class),
+        ];
+    }
+
     protected $variantRepository;
 
     public function __construct(VariantRepository $variantRepository)

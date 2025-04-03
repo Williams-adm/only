@@ -1,6 +1,5 @@
 <div class="card card-color">
     <form wire:submit="save">
-        @csrf
         <x-validation-errors class="mb-4" />
 
         <div class="mb-4">
