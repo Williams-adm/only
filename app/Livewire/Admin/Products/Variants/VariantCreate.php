@@ -133,7 +133,7 @@ class VariantCreate extends Component
     public function validateData()
     {
         $rules = [
-            'image' => 'required|image|max:1024',
+            'image' => 'nullable|image|max:1024',
             'infoVariant.stock' => 'required|min:1|integer',
             'infoVariant.price' => 'required|numeric|decimal:2|min:1',
             'variants.*.option_id' => 'required|distinct:strict',
