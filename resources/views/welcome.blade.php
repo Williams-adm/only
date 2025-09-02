@@ -8,7 +8,7 @@
 
         <style>
             .swiper-pagination-bullet {
-                background-color: #FEC51C;
+                background-color: #753089;
                 width: 12px;
                 height: 12px;
             };
@@ -31,8 +31,8 @@
         <div class="swiper-pagination"></div>
 
         <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev text-[#FEC51C] font-semibold"></div>
-        <div class="swiper-button-next text-[#FEC51C] font-semibold"></div>
+        <div class="swiper-button-prev text-[#753089] font-semibold"></div>
+        <div class="swiper-button-next text-[#753089] font-semibold"></div>
     </div>
 
     <x-container>
@@ -47,21 +47,24 @@
                         <a href="{{ route('products.show', $product) }}">
                             <img src="{{ Storage::url($product->variants->first()->images->first()->path) }}" alt="img-product-{{$product->name}}"
                                 class="w-full h-48 object-cover object-center">
-        
+
                             <div class="p-4">
-                                <h1 class="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[56px]">
-                                    {{ $product->name }}
+                                <span class="text-sm font-bold text-gray-900 dark:text-gray-200 mb-1 line-clamp-2">
+                                    {{ $product->brand->name }}
+                                </span>
+                                <h1 class="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[40px]">
+                                    {{ $product->name }} {{ $product->model }}
                                 </h1>
                                 <p class="text-gray-900 dark:text-gray-200 mb-4">
                                     S/. {{ $product->variants->first()->price }}
                                 </p>
-        
+
                                 <span class="btn btn-blue block w-full text-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                                     Ver producto
                                 </span>
                             </div>
                         </a>
-                    </article>  
+                    </article>
                 @endif
             @endforeach
         </div>

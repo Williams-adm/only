@@ -4,10 +4,6 @@
             @include('shop.partials.breadcrumb', [
                 'breadcrumbs' => [
                     [
-                        'name' => $product->subcategory->category->family->name,
-                        'route' => route('families.show', $product->subcategory->category->family)
-                    ],
-                    [
                         'name' => $product->subcategory->category->name,
                         'route' => route('categories.show', $product->subcategory->category)
                     ],
@@ -21,5 +17,5 @@
     </x-container>
 
     @livewire('shop.products.add-to-cart', ['product' => $product])
-    
+
 </x-app-layout>

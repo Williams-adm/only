@@ -11,7 +11,7 @@
                 <section>
                     <h3 class="mt-4">1. Introducción</h3>
                     <p>
-                        En Only Home, tu privacidad es muy importante para nosotros. Esta Política de Privacidad describe cómo recopilamos, usamos, protegemos y compartimos la información personal que nos proporcionas al utilizar nuestro sitio web y servicios.
+                        En ANTTEC, tu privacidad es muy importante para nosotros. Esta Política de Privacidad describe cómo recopilamos, usamos, protegemos y compartimos la información personal que nos proporcionas al utilizar nuestro sitio web y servicios.
                     </p>
                 </section>
                 <section>
@@ -88,7 +88,7 @@
                     <p>
                         Si tienes alguna pregunta o inquietud sobre nuestra Política de Privacidad o cómo tratamos tus datos personales, puedes contactarnos a través del siguiente número:
                         <br>
-                        <span>Teléfono: <a href="https://api.whatsapp.com/send?phone=51937366147" target="__blank" class="hover:text-gray-300 hover:no-underline">+51 937 366 147</a></span>
+                        <span>Teléfono: <a href="https://api.whatsapp.com/send?phone=51964645037" target="__blank" class="hover:text-gray-300 hover:no-underline">+51 964 645 037</a></span>
                     </p>
                 </section>
             </div>

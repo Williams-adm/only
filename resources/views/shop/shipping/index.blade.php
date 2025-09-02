@@ -4,7 +4,7 @@
             <div class="col-span-2">
                 @livewire('shop.shipping-addresses')
             </div>
-            
+
             <div class="col-span-2 md:col-span-1 mx-3 md:mx-0">
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border-gray-200 dark:border-gray-700 mb-4">
                     <div class="bg-gray-900 dark:bg-gray-200 text-white dark:text-black p-3 flex justify-between items-center font-medium text-lg">
@@ -21,12 +21,21 @@
                             @foreach (Cart::content() as $item)
                                 <li class="flex items-center space-x-4 mb-2">
                                     <figure class="shrink-0">
-                                        <img class="h-14 aspect-square" src="{{ Storage::url($item->options->image) }}" alt="">
+                                        <img class="h-16 aspect-square" src="{{ Storage::url($item->options->image) }}" alt="">
                                     </figure>
                                     <div class="flex-1">
-                                        <p class="text-sm">
-                                            {{ $item->name }}
-                                        </p>
+                                        <div class="flex flex-col">
+                                            <p class="text-sm">
+                                                {{ $item->name }} {{ $item->options->model }}
+                                            </p>
+                                            @foreach ($item->options->features as $featureId => $featureDescription)
+                                                <p
+                                                    class="{{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'dark:text-gray-200 text-gray-800 text-sm' }}">
+                                                    {{ $item->options->option_names[$featureId] ?? 'Opción' }}:
+                                                    {{ $featureDescription }}
+                                                </p>
+                                            @endforeach
+                                        </div>
                                         <p class="font-semibold">
                                             S/. {{ $item->price }}
                                         </p>

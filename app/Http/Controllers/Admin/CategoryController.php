@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
-use App\Models\Family;
 use App\Repositories\Admin\BaseRepository;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -21,13 +20,9 @@ class CategoryController extends BaseAdminController implements HasMiddleware
     {
         $model = new Category();
         $viewName = 'categories';
-        $relationships = [
-            'family'
-        ];
-        $extraData = ['families' => Family::class];
 
-        $repository = new BaseRepository($model, $viewName, $relationships, $extraData);
-        
+        $repository = new BaseRepository($model, $viewName);
+
         $repository->setRelationChecker(function ($category) {
             return $category->subCategories()->count() > 0;
         });

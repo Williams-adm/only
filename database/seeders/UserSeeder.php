@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
         // User::factory(10)->create();
 
         $user = User::factory()->create([
-            'name' => 'Bettzi Yasvir',
-            'last_name' => 'Perez Perez ',
-            'email' => 'bettzi-perez@gmail.com',
+            'name' => 'Jhonny Stevens',
+            'last_name' => 'Romero Linares',
+            'email' => 'prueba@gmail.com',
             'password' => bcrypt('12345678'),
         ]);
 
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'document_type' => strtoupper('DNI'),
             'document_number' => '48969246',
         ]);
-        
+
         $user->phones()->create([
             'number' => '937366147',
         ]);

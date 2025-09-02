@@ -2,7 +2,7 @@
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
-                <button x-on:click="sidebarOpen = !sidebarOpen"  
+                <button x-on:click="sidebarOpen = !sidebarOpen"
                     data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
                     type="button"
                     class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -15,9 +15,8 @@
                     </svg>
                 </button>
                 <a href="{{ route('admin.dashboard') }}" class="flex ms-2 md:me-24">
-                    <img src="{{ asset('assets/img/logo.png') }}" class="h-8 me-3" alt="logo empresa" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Only Home</span>
+                    <img class="h-10 me-3 block dark:hidden" src="{{ asset('assets/img/logo-dark.png') }}" alt="Logo Light" />
+                    <img class="h-10 me-3 hidden dark:block" src="{{ asset('assets/img/logo.png') }}" alt="Logo Dark" />
                 </a>
             </div>
             <div class="flex items-center">
@@ -50,7 +49,7 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-                            
+
                             <x-dropdown-link href="{{ route('welcome.index') }}">
                                 Tienda virtual
                             </x-dropdown-link>

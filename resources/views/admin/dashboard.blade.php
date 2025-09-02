@@ -23,7 +23,7 @@
         </div>
         <div class="rounded-lg shadow-lg p-6 bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
             <h2 class="text-xl font-semibold">
-                ONLY HOME
+                ANTTEC
             </h2>
         </div>
     </section>

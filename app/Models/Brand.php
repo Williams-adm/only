@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Family extends Model
+class Brand extends Model
 {
     protected $fillable = [
         'name'
     ];
 
-    public function categories(): HasMany
+    public function products(): HasMany
     {
-        return $this->hasMany(Category::class)->chaperone();
+        return $this->hasMany(Product::class)->chaperone();
     }
 }

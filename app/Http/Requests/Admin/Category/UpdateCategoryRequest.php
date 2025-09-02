@@ -4,7 +4,6 @@ namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -26,18 +25,12 @@ class UpdateCategoryRequest extends FormRequest
         $categoryId = $this->route('category');
 
         return [
-            'family_id' => [
-                'required',
-                'exists:families,id'
-            ],
             'name' => [
                 'required',
                 'string',
                 'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
-                'between:3,60', 
-                Rule::unique('categories', 'name')
-                ->where(fn($query) => $query->where('family_id', $this->family_id))
-                ->ignore($categoryId)
+                'between:3,60',
+                Rule::unique('categories', 'name')->ignore($categoryId)
             ]
         ];
     }

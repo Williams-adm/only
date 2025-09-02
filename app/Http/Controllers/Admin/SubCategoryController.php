@@ -22,7 +22,7 @@ class SubCategoryController extends BaseAdminController implements HasMiddleware
         $model = new SubCategory();
         $viewName = 'subcategories';
         $relationships = [
-            'category.family',
+            'category',
         ];
 
         $repository = new BaseRepository($model, $viewName, $relationships);

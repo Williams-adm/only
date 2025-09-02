@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CoverController;
-use App\Http\Controllers\Admin\FamilyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -21,7 +21,7 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('/options', [OptionController::class, 'index'])->name('options.index');
 
-Route::resource('families', FamilyController::class);
+Route::resource('brands', BrandController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubCategoryController::class);
 Route::resource('products', ProductController::class);

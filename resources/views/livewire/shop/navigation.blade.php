@@ -1,18 +1,18 @@
 <div x-data?="{
-    open: false,    
+    open: false,
 }">
-    <header class="bg-[#FEC51C]">
+    <header class="bg-[#5A2867]">
         <x-container class="px-4 py-4">
             <div class="flex items-center space-x-8 justify-between">
 
                 <button class="text-2xl md:text-3xl" x-on:click="open = true">
-                    <i class="fa-solid fa-list"></i>
+                    <i class="fa-solid fa-list text-gray-300"></i>
                 </button>
 
-                <h1 class="text-black">
+                <h1 class="text-gray-200">
                     <a href="/" class="inline-flex flex-col items-end">
                         <span class="text-2xl  md:text-3xl leading-6 font-semibold">
-                            Only Home
+                            ANTTEC
                         </span>
                     </a>
                 </h1>
@@ -37,7 +37,7 @@
                                 </button>
                             @else
                                 <button class="text-2xl md:text-3xl ">
-                                    <i class="fa-solid fa-user"></i>
+                                    <i class="fa-solid fa-user text-gray-300"></i>
                                 </button>
                             @endauth
                         </x-slot>
@@ -50,7 +50,7 @@
                                             Iniciar sesión
                                         </a>
                                     </div>
-                                    
+
                                     <p class="text-sm text-center dark:text-white mt-3">
                                         <a href="{{ route('register') }}" class="hover:underline dark:hover:text-[#ffdf7e]">Regístrate</a>
                                     </p>
@@ -80,17 +80,17 @@
                             @endguest
                         </x-slot>
                     </x-dropdown>
-                    
-                    <a href="{{ route('cart.index') }}" class="relative">
-                        <i class="fa-solid fa-cart-shopping text-2xl md:text-3xl"></i>
 
-                        <span id="cart-count" class="absolute -top-2 -end-4 inline-flex w-6 h-6 items-center justify-center bg-gray-100 rounded-full text-xs font-bold">
+                    <a href="{{ route('cart.index') }}" class="relative">
+                        <i class="fa-solid fa-cart-shopping text-2xl md:text-3xl text-gray-200"></i>
+
+                        <span id="cart-count" class="absolute -top-2 -end-4 inline-flex w-6 h-6 items-center justify-center bg-gray-700 rounded-full text-xs font-bold text-gray-200">
                             {{ Cart::instance('shopping')->count() }}
                         </span>
                     </a>
                 </div>
             </div>
-            
+
             <div class="mt-4 md:hidden">
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -107,8 +107,8 @@
     <div x-show="open" x-on:click="open = false" style="display: none" class="fixed top-0 left-0 inset-0 bg-black bg-opacity-20 z-10 dark:bg-white dark:bg-opacity-[0.12]"></div>
     <div x-show="open" style="display: none" class="fixed top-0 left-0 z-20">
         <div class="flex">
-            <div class="w-80 h-screen bg-gray-100 dark:bg-gray-900 md:border-r-[1px] md:border-[#FEC51C]">
-                <div class="bg-[#FEC51C] px-4 py-3 text-black font-semibold">
+            <div class="w-80 h-screen bg-gray-100 dark:bg-gray-900 md:border-r-[1px] md:border-[#5A2867]">
+                <div class="bg-[#5A2867] px-4 py-3 text-gray-300 font-semibold">
                     <div class="flex items-center justify-between">
                         <span class="text-lg">
                             @auth
@@ -125,10 +125,10 @@
 
                 <div class="h-[calc(100vh-52px)] overflow-auto">
                     <ul>
-                        @foreach ($families as $family)
-                            <li wire:mouseover="$set('family_id', {{$family->id}})">
-                                <a href="{{ route('families.show', $family) }}" class="flex items-center justify-between px-4 py-4 text-gray-700 dark:text-white hover:bg-[#ffdf7e] dark:hover:text-black">
-                                    {{ $family->name }}
+                        @foreach ($categories as $category)
+                            <li wire:mouseover="$set('category_id', {{$category->id}})">
+                                <a href="{{ route('categories.show', $category_id) }}" class="flex items-center justify-between px-4 py-4 text-gray-800 dark:text-gray-200 hover:bg-[#753089] hover:text-white dark:hover:text-white">
+                                    {{ $category->name }}
                                     <i class="fa-solid fa-angle-right fa-lg"></i>
                                 </a>
                             </li>
@@ -139,36 +139,30 @@
 
             <div class="w-80 xl:w-[57rem] pt-[52px] hidden md:block">
                 <div class="h-[calc(100vh-52px)] overflow-auto bg-gray-100 dark:bg-gray-900 px-6 py-8">
-                    <div class="mb-8 flex justify-between items-center">
-                        <p class="border-b-[3px] border-[#E39F00] uppercase text-xl font-bold text-gray-700 dark:text-white">
-                            <a href="{{ route('families.show', $family_id) }}" class="hover:text-black dark:hover:text-[#E39F00]">
-                                {{ $this->familyName }}
-                            </a>    
+                    <div class="mb-6 flex justify-between items-center">
+                        <p class="border-b-[3px] border-[#5A2867] uppercase text-xl font-bold text-gray-700 dark:text-white">
+                            <a href="{{ route('categories.show', $category_id) }}" class="hover:text-black dark:hover:text-[#803398]">
+                                {{ $this->categoryName }}
+                            </a>
                         </p>
 
-                        <a href="{{ route('families.show', $family_id) }}" class="btn3 btn-light2">
+                        <a href="{{ route('categories.show', $category_id) }}" class="btn3 btn-light2">
                             Ver Todo
                         </a>
                     </div>
 
                     <ul class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-                        @foreach ($this->categories as $category)
-                            <li>
-                                <a href="{{ route('categories.show', $category) }}" class="text-gray-700 dark:text-white font-semibold text-lg pb-1 hover:text-black dark:hover:text-[#E39F00]">
-                                    {{$category->name}}
-                                </a>
-
-                                <ul class="mt-4 space-y-2">
-                                    @foreach ($category->subCategories as $subCategory)
-                                        <li>
-                                            <a href="{{ route('subcategories.show', $subCategory) }}" class="text-sm text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-[#E39F00]">
-                                                {{ $subCategory->name }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
+                        <li>
+                            <ul class="mt-2 space-y-2">
+                                @foreach ($this->selectedCategory->subCategories as $subCategory)
+                                    <li>
+                                        <a href="{{ route('subcategories.show', $subCategory) }}" class=" text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-[#803398]">
+                                            {{ $subCategory->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

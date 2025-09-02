@@ -16,6 +16,8 @@ class AddToCart extends Component
 
     public $product;
 
+    public $optionNames = [];
+
     public $variant;
     public $qty = 1;
     public $stock;
@@ -39,11 +41,12 @@ class AddToCart extends Component
         foreach ($groupedOptions as $optionId  => $features) {
             $firstFeature = $features->first();
             $this->selectedFeatures[$firstFeature['option_id']] = $firstFeature['id'];
+            $this->optionNames[$firstFeature['id']] = $firstFeature['option']['name'];
         }
 
         $this->getVariant();
     }
-    
+
     public function updatedSelectedFeatures()
     {
         $this->getVariant();
@@ -66,7 +69,7 @@ class AddToCart extends Component
             return !array_diff($variant->features->pluck('id')->toArray(), $this->selectedFeatures);
         })->first();
     }
-    
+
     public function addToCart()
     {
         Cart::instance('shopping');
@@ -89,6 +92,18 @@ class AddToCart extends Component
             }
         }
 
+        // Obtener descripciones y nombres de opción
+        $featuresDescriptions = [];
+        $optionNames = [];
+
+        foreach ($this->selectedFeatures as $optionId => $featureId) {
+            $feature = Feature::with('option')->find($featureId);
+
+            $featuresDescriptions[$featureId] = $feature->description;
+            // Intentamos usar lo que ya tenemos guardado en optionNames, si no, lo sacamos de la relación
+            $optionNames[$featureId] = $this->optionNames[$featureId] ?? $feature->option->name;
+        }
+
         Cart::add([
             'id' => $this->product->id,
             'name' => $this->product->name,
@@ -97,8 +112,10 @@ class AddToCart extends Component
             'options' => [
                 'image' => $this->variantImg->images->first()->path,
                 'stock' => $this->variant->stock,
+                'model' => $this->product->model,
                 'sku' => $this->variantImg->sku,
-                'features' => Feature::whereIn('id', $this->selectedFeatures)->pluck('description', 'id')->toArray()
+                'features' => $featuresDescriptions,
+                'option_names' => $optionNames,
             ]
         ]);
 

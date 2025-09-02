@@ -66,10 +66,10 @@
                 Información de la empresa:
             </h4>
             <div>
-                Nombre: Only Home
+                Nombre: ANTTEC
             </div>
             <div>
-                Ruc: 10489692461
+                Ruc: 20614216345
             </div>
             <div>
                 Teléfono: 937 366 147
@@ -78,7 +78,7 @@
                 Correo: onlyhome79@gmail.com
             </div>
         </div>
-        
+
         <div class="info">
             <h4>
                 Datos del cliente:
@@ -92,9 +92,6 @@
             </div>
             <div>
                 Dirección: {{ $order->address['district'] . ' - ' . $order->address['street'] }} ({{ $order->address['reference'] }})
-            </div>
-            <div>
-                Teléfono: +51 {{ $order->address['receiver_info']['phone'] }}
             </div>
         </div>
 

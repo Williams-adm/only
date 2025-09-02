@@ -28,31 +28,6 @@
                                     </p>
                                 </div>
                             </li>
-
-                            {{-- <li>
-                                <label class="p-4 flex items-center">
-                                    <x-radio value="2" x-model="pago"></x-radio>
-                                    <span class="ml-2">
-                                        Depósito Bancario o Yape
-                                    </span>
-                                </label>
-                                <div class="p-4 bg-gray-100 dark:bg-gray-700 flex justify-center border-t border-gray-600 dark:border-gray-300"
-                                    x-cloak
-                                    x-show="pago == 2">
-                                    <div>
-                                        <p>1. Pago por depósito o transferencia bancaria:</p>
-                                        <p>- BCP soles: 451-123456789-89</p>
-                                        <p>- CCI: 001-456-897159423</p>
-                                        <p>- Razón social: Only Home</p>
-                                        <p>- RUC: 134859848</p>
-                                        <p>1. Pago por Yape:</p>
-                                        <p>- Yapea al número: 9856123456 (Only Home)</p>
-                                        <p>
-                                            Enviar el comprobante de pago a 9856123456
-                                        </p>
-                                    </div>
-                                </div>
-                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -63,7 +38,7 @@
                         @foreach (Cart::instance('shopping')->content() as $item)
                             <li class="flex items-center space-x-4">
                                 <div class="flex-shrink-0 relative">
-                                    <img class="h-14 aspect-square" src="{{ Storage::url($item->options->image) }}" alt="">
+                                    <img class="h-16 aspect-square" src="{{ Storage::url($item->options->image) }}" alt="">
                                     <div class="flex justify-center items-center h-6 w-6 bg-gray-900 dark:bg-gray-200 bg-opacity-70 rounded-full absolute -right-2 -top-2">
                                         <span class="font-semibold dark:text-gray-700">
                                             {{ $item->qty }}
@@ -71,7 +46,18 @@
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    {{ $item->name }}
+                                    <div class="flex flex-col">
+                                        <span>
+                                            {{ $item->name }} {{ $item->options->model }}
+                                        </span>
+                                        @foreach ($item->options->features as $featureId => $featureDescription)
+                                                <p
+                                                    class="{{ $item->qty > $item->options['stock'] ? 'text-red-600' : 'dark:text-gray-200 text-gray-800' }}">
+                                                    {{ $item->options->option_names[$featureId] ?? 'Opción' }}:
+                                                    {{ $featureDescription }}
+                                                </p>
+                                            @endforeach
+                                    </div>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <p>
@@ -81,7 +67,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    
+
                     <div class="flex justify-between">
                         <p>
                             SubTotal
@@ -90,7 +76,7 @@
                             S/. {{ Cart::instance('shopping')->subtotal() }}
                         </p>
                     </div>
-                    
+
                     <div class="flex justify-between">
                         <p>
                             Precio de envío
@@ -101,9 +87,9 @@
                             S/. 15.00
                         </p>
                     </div>
-                    
+
                     <hr class="my-4">
-                    
+
                     <div class="flex justify-between mb-4">
                         <p class="text-lg font-semibold">
                             Total
@@ -149,7 +135,7 @@
                             </div>
                         @endisset
                     @else
-                        
+
                     @endif
                 </div>
             </div>
@@ -183,7 +169,7 @@
                 });
             });
 
-            
+
         </script>
     @endpush
 </x-app-layout>

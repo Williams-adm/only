@@ -3,10 +3,8 @@
 namespace App\Livewire\Admin\Subcategories;
 
 use App\Models\Category;
-use App\Models\Family;
 use App\Traits\Admin\sweetAlerts;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class SubcategoryEdit extends Component
@@ -14,38 +12,21 @@ class SubcategoryEdit extends Component
     use sweetAlerts;
 
     public $data;
-    public $families;
-
-    public $family_id = '';
+    public $categories;
     public $category_id = '';
     public $name = '';
 
     protected $listeners = ['save' => 'save'];
 
     /**
-     * Se ejectura ni bien se cargue el componente  
+     * Se ejectura ni bien se cargue el componente
      */
     public function mount($data)
     {
-        $this->families = Family::all();
+        $this->categories = Category::all();
 
-        $this->family_id = $data->category->family_id;
         $this->category_id = $data->category_id;
         $this->name = $data->name;
-    }
-
-    /**
-     * Ciclo de vida del componente
-     */
-    public function updatedFamilyId()
-    {
-        $this->reset('category_id');
-    }
-
-    #[Computed()]
-    public function categories()
-    {
-        return Category::where('family_id', $this->family_id)->get();
     }
 
     public function save()
@@ -53,7 +34,6 @@ class SubcategoryEdit extends Component
         $this->validateData();
 
         $this->data->update([
-            'family_id'   => $this->family_id,
             'category_id' => $this->category_id,
             'name'        => $this->name,
         ]);
@@ -70,7 +50,6 @@ class SubcategoryEdit extends Component
     {
         $this->validate(
             [
-                'family_id' => 'required|exists:families,id',
                 'category_id' => 'required|exists:categories,id',
                 'name' => [
                     'required',
@@ -87,7 +66,6 @@ class SubcategoryEdit extends Component
                 'name.unique' => 'El nombre ya está relacionado con esta categoria.'
             ],
             [
-                'family_id' => 'familia',
                 'category_id' => 'categoria',
                 'name' => 'nombre',
             ]

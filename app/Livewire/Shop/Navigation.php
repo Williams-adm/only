@@ -3,33 +3,31 @@
 namespace App\Livewire\Shop;
 
 use App\Models\Category;
-use App\Models\Family;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Navigation extends Component
 {
-    public $families;
+    public $categories;
 
-    public $family_id;
+    public $category_id;
 
     public function mount()
     {
-        $this->families = Family::all();
-        $this->family_id = $this->families->first()->id;
+        $this->categories = Category::all();
+        $this->category_id = $this->categories->first()->id;
     }
 
     #[Computed()]
-    public function categories()
+    public function selectedCategory()
     {
-        return Category::where('family_id', $this->family_id)
-            ->with('subCategories')->get();
+        return Category::with('subCategories')->find($this->category_id);
     }
-
+    
     #[Computed()]
-    public function familyName()
+    public function categoryName()
     {
-        return Family::find($this->family_id)->name;
+        return Category::find($this->category_id)->name;
     }
 
     public function render()

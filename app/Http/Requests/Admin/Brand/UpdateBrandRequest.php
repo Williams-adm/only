@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Family;
+namespace App\Http\Requests\Admin\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateFamilyRequest extends FormRequest
+class UpdateBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,15 @@ class UpdateFamilyRequest extends FormRequest
      */
     public function rules(): array
     {
-        $familyId = $this->route('family');
+        $brandId = $this->route('brand');
 
         return [
             'name' => [
-                'required', 
-                'string', 
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/', 
-                'between:3,60', 
-                Rule::unique('families', 'name')->ignore($familyId),
+                'required',
+                'string',
+                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                'between:3,60',
+                Rule::unique('brands', 'name')->ignore($brandId),
             ]
         ];
     }

@@ -16,9 +16,6 @@
         Categoría
     </th>
     <th scope="col" class="px-6 py-3">
-        Familia
-    </th>
-    <th scope="col" class="px-6 py-3">
         Acciones
     </th>
 @endsection
@@ -34,9 +31,6 @@
             </td>
             <td class="px-6 py-4">
                 {{ $subcategory->category->name }}
-            </td>
-            <td class="px-6 py-4">
-                {{ $subcategory->category->family->name }}
             </td>
             @include('admin.partials.tabla-acctions', ['item' => $subcategory, 'editRoute' => 'admin.subcategories.edit', 'deleteRoute' => 'admin.subcategories.destroy'])
         </tr>

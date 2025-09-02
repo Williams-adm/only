@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Family;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Traits\Admin\skuGenerator;
@@ -21,24 +21,28 @@ class ProductEdit extends Component
     use sweetAlerts;
 
     public $data;
-    public $families;
+    public $categories;
+    public $brands;
 
-    public $family_id = '';
     public $category_id = '';
     public $sub_category_id = '';
+    public $brand_id = '';
     public $name = '';
+    public $model = '';
     public $description = '';
 
     protected $listeners = ['save' => 'save'];
 
     public function mount($data)
     {
-        $this->families = Family::all();
+        $this->categories = Category::all();
+        $this->brands = Brand::all();
 
-        $this->family_id = $data->subCategory->category->family_id;
         $this->category_id = $data->subCategory->category_id;
         $this->sub_category_id = $data->sub_category_id;
+        $this->brand_id = $data->brand_id;
         $this->name = $data->name;
+        $this->model = $data->model;
         $this->description = $data->description;
     }
 
@@ -55,21 +59,9 @@ class ProductEdit extends Component
         });
     }
 
-    public function updatedFamilyId()
-    {
-        $this->reset('category_id');
-        $this->reset('sub_category_id');
-    }
-
     public function updatedCategoryId()
     {
         $this->reset('sub_category_id');
-    }
-
-    #[Computed()]
-    public function categories()
-    {
-        return Category::where('family_id', $this->family_id)->get();
     }
 
     #[Computed()]
@@ -97,11 +89,13 @@ class ProductEdit extends Component
         }
 
         $product = Product::findOrFail($this->data->id);
-        
+
         $product->update([
             'name' => $this->name,
+            'model' => $this->model,
             'sku' => $sku,
             'description' => $this->description,
+            'brand_id' => $this->brand_id,
             'sub_category_id' => $this->sub_category_id,
         ]);
 
@@ -117,7 +111,7 @@ class ProductEdit extends Component
     {
         $this->validate(
             [
-                'family_id' => 'required|exists:families,id',
+                'brand_id' => 'required|exists:brands,id',
                 'category_id' => 'required|exists:categories,id',
                 'sub_category_id' => 'required|exists:sub_categories,id',
                 'name' => [
@@ -129,6 +123,11 @@ class ProductEdit extends Component
                         ->where(fn(Builder $query) => $query->where('sub_category_id', $this->sub_category_id))
                         ->ignore($this->data->id)
                 ],
+                'model' => [
+                    'required',
+                    'string',
+                    'between:3,80',
+                ],
                 'description' => 'required|string',
             ],
             [
@@ -136,7 +135,9 @@ class ProductEdit extends Component
                 'name.unique' => 'El nombre ya está relacionado con esta subcategoria.',
             ],
             [
+                'model' => 'modelo',
                 'category_id' => 'categoría',
+                'brand_id' => 'marca',
                 'sub_category_id' => 'subcategoría',
             ]
         );

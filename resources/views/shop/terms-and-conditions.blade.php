@@ -11,7 +11,7 @@
                 <section>
                     <h3 class="mt-4">1. Introducción</h3>
                     <p>
-                        Bienvenido a Only Home. Al acceder y utilizar este sitio web, aceptas los siguientes Términos y Condiciones. Si no estás de acuerdo con estos términos, por favor no utilices nuestro sitio.
+                        Bienvenido a ANTTEC. Al acceder y utilizar este sitio web, aceptas los siguientes Términos y Condiciones. Si no estás de acuerdo con estos términos, por favor no utilices nuestro sitio.
                     </p>
                 </section>
                 <section>
@@ -19,7 +19,7 @@
                         2. Descripción de la Empresa
                     </h3>
                     <p>
-                        Only Home se especializa en la venta de adornos decorativos exclusivos e importados desde Europa y Oriente, así como muebles de alta calidad. Nuestros productos están enfocados en embellecer hogares y oficinas, ofreciendo artículos como sofás, mesas de comedor y otros artículos decorativos.
+                        ANTTEC se especializa en la venta de periféricos, con un enfoque principal en productos dirigidos tanto a usuarios domésticos, gamers, estudiantes, profesionales y empresas.
                     </p>
                 </section>
                 <section>
@@ -51,7 +51,7 @@
                         6. Responsabilidad del Cliente
                     </h3>
                     <p>
-                        El cliente es responsable de proporcionar información verídica y precisa al momento de realizar su compra. Esto incluye datos de contacto, dirección de envío y métodos de pago. En caso de error en la información proporcionada, Only Home no se hace responsable de retrasos o problemas con el envío.
+                        El cliente es responsable de proporcionar información verídica y precisa al momento de realizar su compra. Esto incluye datos de contacto, dirección de envío y métodos de pago. En caso de error en la información proporcionada, ANTTEC no se hace responsable de retrasos o problemas con el envío.
                     </p>
                 </section>
                 <section>
@@ -59,7 +59,7 @@
                         7. Propiedad Intelectual
                     </h3>
                     <p>
-                        Todo el contenido del sitio web de Only Home, incluyendo imágenes, descripciones de productos y logotipos, están protegidos por derechos de autor y son propiedad exclusiva de Only Home. Queda prohibida su reproducción, distribución o uso sin el consentimiento expreso de la empresa.
+                        Todo el contenido del sitio web de ANTTEC, incluyendo imágenes, descripciones de productos y logotipos, están protegidos por derechos de autor y son propiedad exclusiva de ANTTEC. Queda prohibida su reproducción, distribución o uso sin el consentimiento expreso de la empresa.
                     </p>
                 </section>
                 <section>
@@ -77,7 +77,7 @@
                     <p>
                         Para cualquier consulta, duda o solicitud, puedes contactarnos a través del siguiente número:
                         <br>
-                        <span>Teléfono: <a href="https://api.whatsapp.com/send?phone=51937366147" target="__blank" class="hover:text-gray-300 hover:no-underline">+51 937 366 147</a></span>
+                        <span>Teléfono: <a href="https://api.whatsapp.com/send?phone=51964645037" target="__blank" class="hover:text-gray-300 hover:no-underline">+51 964 645 037</a></span>
                     </p>
                 </section>
                 <section>

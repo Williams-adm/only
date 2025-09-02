@@ -5,12 +5,12 @@
                 <ul class="space-y-4">
                     @foreach ($options as $option)
                         <li x-data="{
-                            open: true    
+                            open: true
                         }">
                             <button class="px-4 py-2 w-full text-left flex justify-between items-center bg-gray-100 text-black dark:bg-gray-700 dark:text-white font-medium"
                                 x-on:click="open = !open">
                                 {{ $option['name'] }}
-                                <i class="fa-solid fa-angle-down" 
+                                <i class="fa-solid fa-angle-down"
                                     x-bind:class="{
                                         'fa-angle-down' : open,
                                         'fa-angle-up' : !open,
@@ -42,7 +42,7 @@
                     Ordenar por:
                 </span>
 
-                <x-select wire:model.live="orderBy"> 
+                <x-select wire:model.live="orderBy">
                     <option value="1" wire:key="rel">Relevancia</option>
                     <option value="2" wire:key="mayor">Precio de mayor a menor</option>
                     <option value="3" wire:key="menor">Precio de menor a mayor</option>
@@ -58,22 +58,25 @@
                             <a href="{{ route('products.show', $product) }}">
                                 <img src="{{ Storage::url($product->variants->first()->images->first()->path) }}" alt="img-product-{{$product->name}}"
                                     class="w-full h-48 object-cover object-center">
-            
+
                                 <div class="p-4">
-                                    <h1 class="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[56px]">
-                                        {{ $product->name }}
+                                    <span class="text-sm font-bold text-gray-900 dark:text-gray-200 mb-1 line-clamp-2">
+                                        {{ $product->brand->name }}
+                                    </span>
+                                    <h1 class="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[40px]">
+                                        {{ $product->name }} {{ $product->model }}
                                     </h1>
                                     <p class="text-gray-900 dark:text-gray-200 mb-4">
                                         S/. {{ $product->variants->first()->price }}
                                     </p>
-            
+
                                     <span class="btn btn-blue block w-full text-center opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                                         Ver producto
                                     </span>
                                 </div>
                             </a>
                         </article>
-                    @endif  
+                    @endif
                 @endforeach
             </div>
 

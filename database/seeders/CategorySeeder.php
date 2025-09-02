@@ -14,16 +14,15 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $families = [
-            1 => ['Decohogar', 'Organización'],
-            2 => ['Comedor', 'Oficina', 'Sala']
+        $categories = [
+            'teclados',
+            'mouses',
+            'monitores'
         ];
 
-        foreach ($families as $familyId => $categories) {
-            foreach ($categories as $category)
+        foreach ($categories as $category) {
             Category::create([
                 'name' => $category,
-                'family_id' => $familyId
             ]);
         }
     }

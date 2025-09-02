@@ -23,8 +23,7 @@ class Filter extends Component
 
     public function mount()
     {
-        $this->options = Option::verifyFamily($this->family_id)
-        ->verifyCategory($this->category_id)
+        $this->options = Option::verifyCategory($this->category_id)
         ->verifySubCategory($this->subcategory_id)
         ->get()->toArray();
     }
@@ -37,8 +36,7 @@ class Filter extends Component
 
     public function render()
     {
-        $products = Product::verifyProduct($this->family_id)
-        ->verifyCategory($this->category_id)
+        $products = Product::verifyCategory($this->category_id)
         ->verifySubCategory($this->subcategory_id)
         ->customOrder($this->orderBy)
         ->selectFeatures($this->select_features)

@@ -16,24 +16,12 @@ class Product extends Model
     protected $fillable = [
         'sku',
         'name',
+        'model',
         'description',
-        'price',
-        'stock',
+        'brand_id',
         'sub_category_id',
     ];
 
-    /**
-     * Verificar si esta presente la familia para traer sus respectivos productos
-     */
-    public function scopeVerifyProduct($query, $family_id)
-    {
-        $query->when($family_id, function ($query, $family_id) {
-            $query->whereHas('subCategory.category', function ($query) use ($family_id) {
-                $query->where('family_id', $family_id);
-            });
-        });
-    }
-    
     /**
      * Verificar si esta presente la categoria para traer sus respectivos productos
      */
@@ -45,7 +33,7 @@ class Product extends Model
             });
         });
     }
-    
+
     /**
      * Verificar si esta presente la subcategoria para traer sus respectivos productos
      */
@@ -66,10 +54,12 @@ class Product extends Model
         })
         ->when($orderBy == 2, function ($query) {
             $query->join('variants', 'variants.product_id', '=', 'products.id')
+                ->select('products.*')
                 ->orderBy('variants.price', 'desc');
         })
         ->when($orderBy == 3, function ($query) {
             $query->join('variants', 'variants.product_id', '=', 'products.id')
+                ->select('products.*')
                 ->orderBy('variants.price', 'asc');
         });
     }
@@ -118,5 +108,10 @@ class Product extends Model
     public function variants(): HasMany
     {
         return $this->hasMany(Variant::class)->chaperone();
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
     }
 }

@@ -4,10 +4,6 @@
             @include('shop.partials.breadcrumb', [
                 'breadcrumbs' => [
                     [
-                        'name' => $category->family->name,
-                        'route' => route('families.show', $category->family)
-                    ],
-                    [
                         'name' => $category->name
                     ]
                 ]

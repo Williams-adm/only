@@ -16,6 +16,9 @@
         Nombre
     </th>
     <th scope="col" class="px-6 py-3">
+        Modelo
+    </th>
+    <th scope="col" class="px-6 py-3">
         SubCategoría
     </th>
     <th scope="col" class="px-6 py-3">
@@ -34,6 +37,9 @@
             </td>
             <td class="px-6 py-4">
                 {{ $product->name }}
+            </td>
+            <td class="px-6 py-4">
+                {{ $product->model }}
             </td>
             <td class="px-6 py-4">
                 {{ $product->subCategory->name }}

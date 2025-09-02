@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
             'access dashboard',
             'manage users',
             'manage options',
-            'manage families',
+            'manage brands',
             'manage categories',
             'manage subcategories',
             'manage products',

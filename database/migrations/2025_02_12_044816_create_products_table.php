@@ -16,11 +16,11 @@ return new class extends Migration
 
             $table->string('sku', length: 10)->unique();
             $table->string('name', length: 80);
+            $table->string('model', length: 80);
             $table->text('description')->nullable();
-            /* $table->decimal('price', total:8 , places:2);
-            $table->integer('stock')->unsigned()->default(0); */
 
             $table->foreignId('sub_category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
 
             $table->unique(['name', 'sub_category_id']);
 

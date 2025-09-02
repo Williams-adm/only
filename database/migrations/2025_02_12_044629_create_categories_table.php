@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', length: 60);
-
-            $table->foreignId('family_id')->constrained()->cascadeOnDelete();
-            /* ->cascadeOnUpdate(); */
-            $table->unique(['name', 'family_id']);
+            $table->string('name', length: 60)->unique();
 
             $table->timestamps();
         });

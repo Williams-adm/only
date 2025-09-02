@@ -30,20 +30,20 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900" 
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900"
     x-data="{
     sidebarOpen: false
     }"
     :class="{
         'overflow-y-hidden': sidebarOpen
     }">
-    
+
     <div class="fixed inset-0 bg-gray-900/50 dark:bg-gray-900/80 opacity-50 z-20 sm:hidden"
         style="display: none;"
         x-show="sidebarOpen"
         x-on:click="sidebarOpen = false">
     </div>
-    
+
     @include('layouts.partials.admin.navigation')
     @include('layouts.partials.admin.sidebar')
 
@@ -63,7 +63,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     @livewireScripts
 
     @stack('js')

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Family;
+namespace App\Http\Requests\Admin\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFamilyRequest extends FormRequest
+class StoreBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class StoreFamilyRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 
-                'string', 
-                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/', 
-                'between:3,60', 
-                'unique:families,name'
+                'required',
+                'string',
+                'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
+                'between:3,60',
+                'unique:brands,name'
             ],
         ];
     }

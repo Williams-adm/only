@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Admin\Category;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -24,16 +22,12 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'family_id' => [
-                'required',
-                'exists:families,id'
-            ],
             'name' => [
                 'required',
                 'string',
                 'regex:/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/',
                 'between:3,60',
-                Rule::unique('categories', 'name')->where(fn (Builder $query) => $query->where('family_id', $this->family_id))
+                'unique:categories,name'
             ]
         ];
     }

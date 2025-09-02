@@ -27,10 +27,10 @@
 
             <div class="mb-3">
                 <h6 class="header-h6">
-                    Familia:
+                    Marca:
                 </h6>
-                <p class="cont-p">
-                    {{ $data->subCategory->category->family->name }}
+                <p class="text-gray-500 dark:text-gray-300">
+                    {{ $data->brand->name }}
                 </p>
             </div>
 
@@ -60,7 +60,16 @@
                     {{ $data->name }}
                 </p>
             </div>
-            
+
+            <div class="mb-3">
+                <h6 class="header-h6">
+                    Modelo:
+                </h6>
+                <p class="cont-p">
+                    {{ $data->model }}
+                </p>
+            </div>
+
             <div class="mb-3">
                 <h6 class="header-h6">
                     Descripción:
