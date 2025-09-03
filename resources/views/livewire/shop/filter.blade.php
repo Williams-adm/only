@@ -56,8 +56,10 @@
                     @if (count($product->variants))
                         <article class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 shadow rounded overflow-hidden relative group">
                             <a href="{{ route('products.show', $product) }}">
-                                <img src="{{ Storage::url($product->variants->first()->images->first()->path) }}" alt="img-product-{{$product->name}}"
-                                    class="w-full h-48 object-cover object-center">
+                                <div class="bg-white w-full h-48">
+                                    <img src="{{ Storage::url($product->variants->first()->images->first()->path) }}" alt="img-product-{{$product->name}}"
+                                        class="w-full h-48 object-contain z-20">
+                                </div>
 
                                 <div class="p-4">
                                     <span class="text-sm font-bold text-gray-900 dark:text-gray-200 mb-1 line-clamp-2">

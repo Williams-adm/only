@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <p class="text-sm font-medium text-gray-900 dark:text-white">SKU: {{$product->sku}}</p>
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">SKU: {{$this->variantImg->sku}}</p>
                 </div>
 
                 <div class="flex justify-between items-center">
