@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Movil;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Movil\LoginUserRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -20,8 +22,11 @@ class UserController extends Controller
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 
+        $token = $user->createToken('api-token')->plainTextToken;
+
         return response()->json([
             'message' => 'Login Exitoso',
+            'token' => $token,
             'user' => [
                 'name' => $user->name,
                 'email' => $user->email,
@@ -29,8 +34,10 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->user()->currentAccessToken()->delete();
+        
         return response()->json([
             'message' => 'Sesión cerrada'
         ], 200);

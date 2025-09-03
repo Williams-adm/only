@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function getAll(Request $filter)
     {
         $category = $filter->query('category');
-        $category_id = Category::where('name', $category)->value('id');
+        $category_id = Category::findOrFail($category)->id;
 
         $products = Product::when($category_id, function ($query, $category_id) {
             $query->whereHas('subCategory', function ($q) use ($category_id) {

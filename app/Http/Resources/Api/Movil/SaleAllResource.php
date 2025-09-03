@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\Movil;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class SaleAllResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,8 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'brand' => $this->brand->name,
-            'sku' => $this->sku,
-            'name' => $this->name,
-            'model' => $this->model,
-            'variants' => VariantResource::collection($this->variants),
+            'time' => $this->date_transaction,
+            'total' => $this->total,
         ];
     }
 }
