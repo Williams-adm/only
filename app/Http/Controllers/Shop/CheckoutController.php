@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NubefactController;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\Variant;
@@ -110,7 +111,9 @@ class CheckoutController extends Controller implements HasMiddleware
                 'payment_id' => $response['dataMap']['TRANSACTION_ID'],
                 'total' => Cart::instance('shopping')->subtotal() + 15,
             ]);
-            
+
+            $pdf_url = app(NubefactController::class)->generarFactura($order->id);
+
             foreach(Cart::instance('shopping')->content() as $item){
                 Variant::where('sku', $item->options['sku'])
                     ->decrement('stock', $item->qty);
@@ -120,8 +123,11 @@ class CheckoutController extends Controller implements HasMiddleware
             if (Auth::check()) {
                 Cart::store(Auth::user()->id);
             }
-            
-            return redirect()->route('thanks')->with('order', $order);
+
+            return redirect()->route('thanks')->with([
+                'order' => $order,
+                'pdf_url' => $pdf_url
+            ]);
 
         }
 

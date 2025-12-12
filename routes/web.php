@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NubefactController;
 use App\Http\Controllers\Shop\CartController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CheckoutController;
@@ -21,7 +22,7 @@ Route::get('products/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('shipping', [ShippingController::class, 'index'])
-->middleware('auth')    
+->middleware('auth')
 ->name('shipping.index');
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -29,6 +30,8 @@ Route::post('checkout/paid', [CheckoutController::class, 'paid'])->name('checkou
 Route::get('thanks', function(){
     return view('shop.thanks');
 })->name('thanks');
+
+Route::get('/factura/{order}', [NubefactController::class, 'generarFactura']);
 
 Route::get('/legal/terms-and-conditions', function (){
     return view('shop.terms-and-conditions');
