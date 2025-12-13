@@ -9,7 +9,12 @@ use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ShippingController;
 use App\Http\Controllers\Shop\SubCategoryController;
 use App\Http\Controllers\Shop\WelcomeController;
+use App\Mail\OrderMailable;
+use App\Mail\passwordMailable;
+use App\Mail\promoMailable;
+use App\Mail\RegisterMailable;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
@@ -49,3 +54,23 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('register', function () {
+    Mail::to('williams29rw@gmail.com')->send(new RegisterMailable);
+    return "mensaje enviado";
+})->name('register');
+
+Route::get('password', function () {
+    Mail::to('williams29rw@gmail.com')->send(new passwordMailable);
+    return "mensaje enviado";
+})->name('password');
+
+Route::get('order', function () {
+    Mail::to('williams29rw@gmail.com')->send(new OrderMailable);
+    return "mensaje enviado";
+})->name('register');
+
+Route::get('promo', function () {
+    Mail::to('williams29rw@gmail.com')->send(new promoMailable);
+    return "mensaje enviado";
+})->name('promo');
